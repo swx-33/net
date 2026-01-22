@@ -1,0 +1,82 @@
+# Compilation output directories
+Output/
+Listing/
+
+# Keil project files
+*.uvopt
+*.uvprojx
+*.uvgui.*
+*.uvproj.saved_uv4
+*.bak
+
+# Keil generated files
+*.lnp
+*.htm
+*.sct
+*.map
+
+# Object files
+*.o
+*.obj
+*.crf
+*.d
+
+# Binary files
+*.hex
+*.axf
+*.bin
+
+# Log files
+*.log
+*.build_log.htm
+
+# List files
+*.lst
+
+# Debug configuration files
+*.dbgconf
+
+# JLink files
+JLink Regs CM3.txt
+JLinkSettings.ini
+
+# Batch files
+keilkill.bat
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS generated files
+Thumbs.db
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Other
+*.dep
+*.jpg
+*.lrc
+
+
+# office
+*.doc
+*.doxc
+*.xls
+
+# video
+*.mp3
+*.mp4
+
+# Gradle
+.gradle/

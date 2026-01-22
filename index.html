@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>现代响应式网页</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏 */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            margin: 5px;
+            transition: var(--transition);
+        }
+
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYxMCI+PHBhdGggZD0iTTAgMGg2MHY2MEgweiIvPjwvZz48L2c+PC9zdmc+') repeat;
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: white;
+            color: var(--primary-color);
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        /* 功能介绍 */
+        .features {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background-color: var(--light-color);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 2rem;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            background-color: var(--secondary-color);
+            transform: scale(1.1);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+        }
+
+        /* 服务展示 */
+        .services {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-img {
+            width: 100%;
+            height: 200px;
+            background-color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .service-content {
+            padding: 30px;
+        }
+
+        .service-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .service-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .service-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .service-link:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* 客户评价 */
+        .testimonials {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .testimonial-card {
+            background-color: var(--light-color);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            font-style: italic;
+            margin-bottom: 30px;
+            color: var(--text-color);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 20px;
+        }
+
+        .author-info h4 {
+            font-size: 1.1rem;
+            color: var(--dark-color);
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* 联系表单 */
+        .contact {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--dark-color);
+        }
+
+        .contact-info p {
+            margin-bottom: 40px;
+            color: var(--text-light);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+
+        .contact-details p {
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 100px 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 10px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 40px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* 动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 滚动动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: var(--transition);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                padding: 20px 0;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 20px 0;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .burger.active .line1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+
+            .burger.active .line2 {
+                opacity: 0;
+            }
+
+            .burger.active .line3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-content {
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .feature-card,
+            .service-card,
+            .testimonial-card {
+                padding: 30px 20px;
+            }
+
+            .contact-form {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Logo</a>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#features">功能</a></li>
+                    <li><a href="#services">服务</a></li>
+                    <li><a href="#testimonials">评价</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+                <div class="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>欢迎来到我们的网站</h1>
+                <p>我们提供高质量的服务，帮助您实现业务目标。无论您需要什么，我们都能为您提供专业的解决方案。</p>
+                <div>
+                    <a href="#services" class="btn">了解更多</a>
+                    <a href="#contact" class="btn btn-outline">联系我们</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 功能介绍 -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>我们的特色功能</h2>
+                <p>我们提供一系列强大的功能，帮助您的业务脱颖而出。</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🚀</div>
+                    <h3>快速响应</h3>
+                    <p>我们的系统响应速度快，确保您的用户获得最佳体验。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📱</div>
+                    <h3>响应式设计</h3>
+                    <p>无论在什么设备上，我们的网站都能完美显示。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔒</div>
+                    <h3>安全可靠</h3>
+                    <p>我们采用最先进的安全技术，保护您的数据安全。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎨</div>
+                    <h3>美观设计</h3>
+                    <p>我们的设计师团队创建了美观、现代的界面。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">⚡</div>
+                    <h3>高性能</h3>
+                    <p>我们的网站加载速度快，性能卓越。</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">👤</div>
+                    <h3>用户友好</h3>
+                    <p>我们的界面直观易用，让用户轻松找到所需内容。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务展示 -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>我们的服务</h2>
+                <p>我们提供全方位的服务，满足您的各种需求。</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-img">💻</div>
+                    <div class="service-content">
+                        <h3>网站开发</h3>
+                        <p>我们为您创建专业的网站，提升您的在线形象。</p>
+                        <a href="#" class="service-link">了解更多 →</a>
+                    </div>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-img">📱</div>
+                    <div class="service-content">
+                        <h3>移动应用开发</h3>
+                        <p>我们开发高性能的移动应用，让您的业务随时随地可用。</p>
+                        <a href="#" class="service-link">了解更多 →</a>
+                    </div>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-img">🎨</div>
+                    <div class="service-content">
+                        <h3>UI/UX设计</h3>
+                        <p>我们创建美观、直观的用户界面，提升用户体验。</p>
+                        <a href="#" class="service-link">了解更多 →</a>
+                    </div>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-img">🔍</div>
+                    <div class="service-content">
+                        <h3>SEO优化</h3>
+                        <p>我们优化您的网站，提高搜索引擎排名，增加流量。</p>
+                        <a href="#" class="service-link">了解更多 →</a>
+                    </div>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-img">📊</div>
+                    <div class="service-content">
+                        <h3>数字营销</h3>
+                        <p>我们提供全面的数字营销策略，帮助您扩大业务范围。</p>
+                        <a href="#" class="service-link">了解更多 →</a>
+                    </div>
+                </div>
+                <div class="service-card fade-in">
+                    <div class="service-img">🛠️</div>
+                    <div class="service-content">
+                        <h3>技术支持</h3>
+                        <p>我们提供全天候技术支持，确保您的业务顺利运行。</p>
+                        <a href="#" class="service-link">了解更多 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 客户评价 -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>客户评价</h2>
+                <p>听听我们的客户怎么说。</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in">
+                    <p class="testimonial-text">"这是我用过的最好的服务之一。团队专业、高效，结果超出了我的期望。强烈推荐！"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">张</div>
+                        <div class="author-info">
+                            <h4>张先生</h4>
+                            <p>企业CEO</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <p class="testimonial-text">"网站设计非常漂亮，功能齐全，客户服务也很到位。我们的业务因此得到了很大的提升。"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">李</div>
+                        <div class="author-info">
+                            <h4>李女士</h4>
+                            <p>市场总监</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card fade-in">
+                    <p class="testimonial-text">"团队反应迅速，解决问题的能力很强。他们真正理解了我们的需求，并提供了完美的解决方案。"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">王</div>
+                        <div class="author-info">
+                            <h4>王先生</h4>
+                            <p>技术总监</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系表单 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>联系我们</h2>
+                <p>无论您有什么问题或需求，都可以通过以下方式联系我们。</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info fade-in">
+                    <h3>联系方式</h3>
+                    <p>我们期待听到您的声音，随时为您提供帮助。</p>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>地址</h4>
+                            <p>北京市朝阳区建国路88号</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-details">
+                            <h4>电话</h4>
+                            <p>+86 10 8888 8888</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <h4>邮箱</h4>
+                            <p>info@example.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">⏰</div>
+                        <div class="contact-details">
+                            <h4>工作时间</h4>
+                            <p>周一至周五: 9:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form fade-in">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">姓名</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">邮箱</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">主题</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">消息</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">发送消息</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>我们是一家专业的数字服务公司，致力于为客户提供高质量的解决方案。</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">📘</a>
+                        <a href="#" class="social-link">🐦</a>
+                        <a href="#" class="social-link">📱</a>
+                        <a href="#" class="social-link">📧</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#features">功能</a></li>
+                        <li><a href="#services">服务</a></li>
+                        <li><a href="#testimonials">评价</a></li>
+                        <li><a href="#contact">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>服务</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">网站开发</a></li>
+                        <li><a href="#">移动应用开发</a></li>
+                        <li><a href="#">UI/UX设计</a></li>
+                        <li><a href="#">SEO优化</a></li>
+                        <li><a href="#">数字营销</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>联系我们</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">北京市朝阳区建国路88号</a></li>
+                        <li><a href="#">+86 10 8888 8888</a></li>
+                        <li><a href="#">info@example.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 版权所有. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'white';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // 汉堡菜单
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+
+        burger.addEventListener('click', function() {
+            burger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    // 关闭汉堡菜单
+                    burger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // 滚动动画
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        const fadeInOnScroll = function() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', fadeInOnScroll);
+        // 初始检查
+        fadeInOnScroll();
+
+        // 联系表单
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                // 模拟表单提交
+                alert(`感谢您的留言，${name}！我们会尽快与您联系。`);
+                contactForm.reset();
+            });
+        }
+
+        // 服务卡片悬停效果
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // 功能卡片动画
+        const featureCards = document.querySelectorAll('.feature-card');
+        featureCards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // 客户评价轮播效果
+        let currentTestimonial = 0;
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        
+        function showNextTestimonial() {
+            testimonialCards[currentTestimonial].style.opacity = '0.5';
+            testimonialCards[currentTestimonial].style.transform = 'scale(0.95)';
+            
+            currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+            
+            testimonialCards[currentTestimonial].style.opacity = '1';
+            testimonialCards[currentTestimonial].style.transform = 'scale(1)';
+        }
+        
+        // 每5秒切换一次评价
+        setInterval(showNextTestimonial, 5000);
+
+        // 页面加载动画
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
